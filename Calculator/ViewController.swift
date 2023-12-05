@@ -10,22 +10,33 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    
+    
+    
     @IBOutlet weak var displayLabel: UILabel!
     
-    
+    private var isFinishedTypingNumber: Bool = true
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
-        
-        //What should happen when a non-number button is pressed
-    
+        let numberOne = displayLabel.text
+        let operation = sender.currentTitle
+        print(numberOne!)
+        print(operation!)
+        isFinishedTypingNumber = true
     }
-
+    
     
     @IBAction func numButtonPressed(_ sender: UIButton) {
+        if let numValue = sender.currentTitle {
+            
+            if isFinishedTypingNumber {
+                displayLabel.text = numValue
+                isFinishedTypingNumber = false
+            } else {
+                displayLabel.text = displayLabel.text! + numValue
+            }
+        }
         
-        //What should happen when a number is entered into the keypad
-    
     }
-
 }
 
