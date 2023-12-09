@@ -8,16 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    
-    
+class CalculateViewController: UIViewController {
     
     
     @IBOutlet weak var displayLabel: UILabel!
     
+    private var calculator = CalculatorLogic()
     private var isFinishedTypingNumber: Bool = true
     private var isDecimal: Bool = false
-    private var displayValue: Double {
+    var displayValue: Double {
         get {
             guard let doubleValue = Double(displayLabel.text!) else {
                 fatalError("error casting displayLabel.text into double")
@@ -30,19 +29,16 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    override func viewDidLoad() {
+        calculator.delegate = self
+    }
+    
+    
     @IBAction func calcButtonPressed(_ sender: UIButton) {
-        let operation = sender.currentTitle
         
         if let calcMethod = sender.currentTitle {
-            if calcMethod == "+/-" {
-                displayValue *= -1
-                
-            } else if calcMethod == "AC" {
-                displayValue = 0
-                
-            } else if calcMethod == "%" {
-                displayValue *= 0.01
-            }
+                calculator.calculate(with: calcMethod, displayValue)
         }
         
         isFinishedTypingNumber = true
